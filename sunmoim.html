@@ -9,12 +9,12 @@
 <meta name="theme-color" content="#f4794b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>순모임 주보</title>
-<meta name="description" content="예배 순서와 한주간의 기도제목을 확인하고 함께 기도해요.">
+<title>순예배</title>
+<meta name="description" content="순예배 순서와 한주간의 기도제목을 확인하고 함께 기도해요.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="순모임 주보">
-<meta property="og:description" content="예배 순서와 한주간의 기도제목을 확인하고 함께 기도해요.">
-<meta property="og:image" content="https://cgn210-alt.github.io/jjr-sunmoim/og-image.jpg?v=1">
+<meta property="og:title" content="순예배">
+<meta property="og:description" content="순예배 순서와 한주간의 기도제목을 확인하고 함께 기도해요.">
+<meta property="og:image" content="https://cgn210-alt.github.io/jjr-sunmoim/og-image.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://cgn210-alt.github.io/jjr-sunmoim/sunmoim.html">
@@ -68,6 +68,15 @@
   .field:last-child{border-bottom:none;}
   .field .label{flex:none;width:80px;color:var(--ink-soft);font-size:14px;font-weight:700;padding-top:1px;}
   .field .value{flex:1;font-size:15px;outline:none;min-height:22px;word-break:break-word;}
+
+  /* 순예배 순서 (번호 목록) */
+  .worship{list-style:none;counter-reset:w;margin:0;padding:0;}
+  .worship>li{counter-increment:w;padding:11px 0;border-bottom:1px dashed var(--line);}
+  .worship>li:last-child{border-bottom:none;}
+  .wname{font-weight:800;font-size:15px;color:var(--ink);letter-spacing:-.2px;}
+  .wname::before{content:counter(w);display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:8px;border-radius:50%;background:var(--brand-soft);color:var(--brand-deep);font-size:12px;font-weight:800;vertical-align:middle;}
+  .wval{font-size:14.5px;color:var(--ink-soft);outline:none;min-height:20px;line-height:1.6;margin-top:4px;padding-left:30px;white-space:pre-wrap;word-break:break-word;}
+  body.editing .wval:empty::before{content:'내용 입력';color:#d8b49c;}
 
   .highlight{background:var(--brand-soft);border-radius:14px;padding:12px 14px;margin-top:4px;}
   .highlight .big{font-size:16px;font-weight:800;color:var(--brand-deep);outline:none;}
@@ -183,53 +192,24 @@
 <div class="wrap">
 
   <div class="card">
-    <div class="card-head"><span class="dot"></span><h2>예배 순서</h2></div>
-    <div class="field"><div class="label">시작기도</div><div class="value" data-f="w_prayer">강성희 권사</div></div>
-    <div class="field"><div class="label">찬양</div><div class="value" data-f="w_praise">주님을 보게 하소서</div></div>
-    <div class="field"><div class="label">본문</div><div class="value" data-f="w_text">시편 119:1-16</div></div>
-    <div class="field"><div class="label">메시지</div><div class="value" data-f="w_message">온전하고 깨끗한 삶의 비결</div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-head"><span class="dot"></span><h2>오늘의 나눔</h2></div>
-    <div class="highlight">
-      <div class="big" data-f="s_big">온전하고 깨끗한 삶의 비결</div>
-      <div class="sub" data-f="s_sub">인도 : 다함께</div>
-    </div>
-    <ul class="qlist" data-list="share">
-      <li><span class="num">1</span><span class="qtext">시편 기자는 어떤 사람에게 복이 있다고 말하나요? (1~2절)</span><button class="del" onclick="delItem(this)">✕</button></li>
-      <li><span class="num">2</span><span class="qtext">죄를 짓지 않도록 나를 지켜 준 하나님 말씀은 무엇인가요? 특정 상황에서 말씀을 떠올리려면 어떤 노력이 필요할지 나누어 보세요.</span><button class="del" onclick="delItem(this)">✕</button></li>
-    </ul>
-    <button class="additem" onclick="addItem('share')">＋ 나눔 질문 추가</button>
-    <div class="field" style="margin-top:6px;"><div class="label">마무리</div><div class="value" data-f="s_closing">순장</div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-head"><span class="dot"></span><h2>합심기도</h2></div>
-    <ul class="qlist" data-list="pray">
-      <li><span class="num">1</span><span class="qtext">바쁘다는 이유로 말씀을 가까이하지 않았던 나태함을 회개하고, 자신의 마음과 행실과 삶이 날마다 말씀을 묵상하고 순종함을 통해 깨끗해지도록</span><button class="del" onclick="delItem(this)">✕</button></li>
-      <li><span class="num">2</span><span class="qtext">전 세계에서 전쟁으로 고통을 당하는 이들에게 주님의 위로와 소망이 임하길, 황폐해진 땅 가운데 복음의 씨가 뿌려지고 진정한 회복이 이루어지도록</span><button class="del" onclick="delItem(this)">✕</button></li>
-    </ul>
-    <button class="additem" onclick="addItem('pray')">＋ 기도제목 추가</button>
-  </div>
-
-  <div class="card">
-    <div class="card-head"><span class="dot"></span><h2>마무리 순서</h2></div>
-    <div class="field"><div class="label">마무리 기도</div><div class="value" data-f="e_prayer">순장 (순헌금 기도)</div></div>
-    <div class="field"><div class="label">순헌금</div><div class="value" data-f="e_offering">다함께</div></div>
-    <div class="field"><div class="label">주기도문</div><div class="value" data-f="e_lords">다같이</div></div>
-    <div class="field"><div class="label">광고</div><div class="value" data-f="e_notice">순장</div></div>
-  </div>
-
-  <div class="card">
-    <div class="card-head"><span class="dot"></span><h2>순헌금 입금 계좌</h2></div>
-    <div class="account">
-      <div class="bank" data-f="a_bank">카카오뱅크</div>
-      <div class="no" data-f="a_no">3333-15-6006510</div>
-      <div class="owner" data-f="a_owner">예금주 : 주웅현</div>
-      <button class="copybtn" onclick="copyAccount()">📋 계좌번호 복사</button>
-      <div class="note" data-f="a_note">순헌금은 위 통장으로 입금하시면 정리해서 공동체 순헌금 통장으로 입금됩니다.</div>
-    </div>
+    <div class="card-head"><span class="dot"></span><h2>순예배 순서</h2></div>
+    <ol class="worship">
+      <li><div class="wname">찬양</div><div class="wval" data-f="o1"></div></li>
+      <li><div class="wname">순 공동체성경읽기</div><div class="wval" data-f="o2"></div></li>
+      <li><div class="wname">모임을 위한 기도</div><div class="wval" data-f="o3"></div></li>
+      <li><div class="wname">한 주간 큐티 나눔</div><div class="wval" data-f="o4"></div></li>
+      <li><div class="wname">말씀 제목</div><div class="wval" data-f="o5"></div></li>
+      <li><div class="wname">도입질문</div><div class="wval" data-f="o6"></div></li>
+      <li><div class="wname">본문 속으로</div><div class="wval" data-f="o7"></div></li>
+      <li><div class="wname">생활 속으로</div><div class="wval" data-f="o8"></div></li>
+      <li><div class="wname">오늘 본문에 대한 큐티 나눔</div><div class="wval" data-f="o9"></div></li>
+      <li><div class="wname">메시지 속으로</div><div class="wval" data-f="o10"></div></li>
+      <li><div class="wname">중보기도</div><div class="wval" data-f="o11"></div></li>
+      <li><div class="wname">마무리 기도 &amp; 순헌금 기도</div><div class="wval" data-f="o12"></div></li>
+      <li><div class="wname">순헌금</div><div class="wval" data-f="o13">하나은행 010-5204-8055(정충균) / 순헌금은 예배 전, 후에 순계좌로 송금해 주세요</div></li>
+      <li><div class="wname">주기도문</div><div class="wval" data-f="o14">다같이</div></li>
+      <li><div class="wname">광고</div><div class="wval" data-f="o15">복음 1번가의 소문을 회복합시다</div></li>
+    </ol>
   </div>
 
   <div class="card">
@@ -244,7 +224,6 @@
     <ul class="plist" id="prayerList"></ul>
   </div>
 
-  <div class="footer-slogan" data-f="slogan">★ 복음1번가의 소문을 회복합시다! ★</div>
 
 </div>
 
@@ -615,20 +594,23 @@ function copyAll(){
   L.push('- 일시 : '+g('time'));
   L.push('- 장소 : '+g('place'));
   L.push('');
-  document.querySelectorAll('.wrap .card').forEach(card=>{
-    const h=card.querySelector('.card-head h2'); if(!h) return;
-    L.push('■ '+txt(h));
-    card.querySelectorAll('.field').forEach(f=> L.push('  · '+txt(f.querySelector('.label'))+' : '+txt(f.querySelector('.value'))));
-    const big=card.querySelector('.highlight .big');
-    if(big){ L.push('  "'+txt(big)+'"'); const sub=card.querySelector('.highlight .sub'); if(sub) L.push('  '+txt(sub)); }
-    card.querySelectorAll('.qlist li').forEach((li,i)=> L.push('  ('+(i+1)+') '+txt(li.querySelector('.qtext'))));
-    const guide=card.querySelector('.guide'); if(guide) L.push('  '+txt(guide));
-    card.querySelectorAll('.plist .pli').forEach(li=> L.push('  · '+txt(li.querySelector('.pname'))+' : '+txt(li.querySelector('.ptext'))));
-    const ac=card.querySelector('.account');
-    if(ac){ L.push('  '+txt(ac.querySelector('[data-f=a_bank]'))+' '+txt(ac.querySelector('[data-f=a_no]'))+' / '+txt(ac.querySelector('[data-f=a_owner]'))); L.push('  '+txt(ac.querySelector('[data-f=a_note]'))); }
+  const items=document.querySelectorAll('.worship > li');
+  if(items.length){
+    L.push('■ 순예배 순서');
+    items.forEach((li,i)=>{
+      const nm=txt(li.querySelector('.wname'));
+      const vl=txt(li.querySelector('.wval'));
+      L.push('  '+(i+1)+'. '+nm+(vl?(' : '+vl):''));
+    });
     L.push('');
-  });
-  L.push(g('slogan'));
+  }
+  const guide=document.querySelector('.guide');
+  const prayers=document.querySelectorAll('#prayerList .pli');
+  if(guide || prayers.length){
+    L.push('■ 한주간의 기도제목');
+    if(guide) L.push('  '+txt(guide));
+    prayers.forEach(li=> L.push('  · '+txt(li.querySelector('.pname'))+' : '+txt(li.querySelector('.ptext'))));
+  }
   copyText(L.join('\n')).then(ok=> toast(ok?'전체 내용이 복사되었습니다.':'복사 실패'));
 }
 
